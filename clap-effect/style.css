@@ -128,3 +128,14 @@ body {
     transform: scale(1);
   }
 }
+
+.colors {
+  /* memo */
+  background-color: #aaf3fe;
+  background-color: #fda7a8;
+  background-color: #aafffe;
+  background-color: #c2fedb;
+  background-color: #f4bdea;
+  background-color: #fec1ed;
+  background-color: #fedac2;
+}
