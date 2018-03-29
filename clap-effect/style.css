@@ -24,10 +24,18 @@ body {
 .confetti-effect {
   transform-origin: center;
   position: absolute;
-  top: -8px;
-  left: -8px;
   width: 100%;
   height: 100%;
+
+  border: 1px solid #000;
+}
+
+.test {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .confetti-wrap {
@@ -36,11 +44,11 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0;
+  opacity: 1;
 }
 
 .confetti-wrap.expand {
-  animation: confetti 0.5s ease infinite;
+  animation: confetti 0.3s ease infinite;
 }
 
 .confetti-wrap .group {
@@ -53,46 +61,20 @@ body {
   display: inline-block;
 }
 
-.group-1 {
-  top: -20px;
-  left: 20px;
-}
-.group-2 {
-  top: 9px;
-  left: 60px;
-  transform: rotate(70deg);
-}
-.group-3 {
-  top: 51px;
-  left: 43px;
-  transform: rotate(142deg);
-}
-.group-4 {
-  top: 51px;
-  left: -4px;
-  transform: rotate(-145deg);
-}
-.group-5 {
-  top: 13px;
-  left: -18px;
-  transform: rotate(-63deg);
-}
-
 .circle {
   position: absolute;
   width: 4px;
   height: 4px;
-  left: 0;
+  left: 40%;
   border-radius: 50%;
-  background-color: #027380;
+  background-color: #ff0000;
 }
 .triangle {
   position: absolute;
-  left: 10px;
-  top: -5px;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-top: 15px solid #faa916;
+  transform: rotate(10deg);
   /* width: 3px; */
   /* height: 15px; */
   /* background-color: #faa916; */
@@ -100,12 +82,14 @@ body {
 
 @keyframes confetti {
   from {
-    transform: scale(0.7);
+    transform: scale(0.6);
     opacity: 1;
+    /* transform: rotate(180deg); */
   }
   to {
     transform: scale(1.1);
     opacity: 0;
+    /* transform: rotate(360deg); */
   }
 }
 
