@@ -16,3 +16,5 @@ https://stackoverflow.com/questions/21408510/chrome-cant-load-web-worker
 ### Learning Material
 
 * https://www.html5rocks.com/ja/tutorials/workers/basics/
+* https://developers.google.com/web/fundamentals/primers/service-workers/?hl=ja
+* https://developers.google.com/web/fundamentals/codelabs/push-notifications/?hl=ja
