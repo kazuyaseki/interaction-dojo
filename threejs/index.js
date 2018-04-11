@@ -33,4 +33,18 @@ function init() {
 
   // 初回実行
   renderer.render(scene, camera);
+
+  // 初回実行
+  tick();
+
+  function tick() {
+    requestAnimationFrame(tick);
+
+    // 箱を回転させる
+    box.rotation.x += 0.01;
+    box.rotation.y += 0.01;
+
+    // レンダリング
+    renderer.render(scene, camera);
+  }
 }
