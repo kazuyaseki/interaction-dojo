@@ -20,7 +20,7 @@ function init() {
   camera.position.set(0, 0, +1000);
 
   // 箱を作成
-  const geometry = new THREE.BoxGeometry(500, 500, 500);
+  const geometry = new THREE.BoxGeometry(500, 500, 500); // (幅, 高さ, 奥行き)
   const material = new THREE.MeshStandardMaterial({ color: 0x0000ff });
   const box = new THREE.Mesh(geometry, material);
   scene.add(box);
