@@ -30,3 +30,20 @@ const ordinalScale = d3
 
 console.log(ordinalScale('poor')); // red 返す
 console.log(ordinalScale('great')); // green 返す
+
+d3.json('data/data.json', function(data) {
+  var extent = d3.extent(data, function(d) {
+    return d.age;
+  });
+  console.log(extent); // extentは最小値と最大値が入った配列くれる。大きさの基準はコールバックとして渡してるやつ依存
+
+  var scale = d3
+    .scaleLinear()
+    .domain(extent)
+    .range([0, 600]);
+
+  var ages = d3.set(data, function(d) {
+    return d.age;
+  });
+  console.log(ages.values());
+});
