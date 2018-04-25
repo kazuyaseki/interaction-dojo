@@ -22,3 +22,11 @@ const quantizeScale = d3
 
 console.log(quantizeScale(22));
 console.log(quantizeScale(49));
+
+const ordinalScale = d3
+  .scaleOrdinal() // quantize scaleはドメインを rangeの数分に区切ってくれる
+  .domain(['poor', 'good', 'great'])
+  .range(['red', 'white', 'green']); // 実際に出力する値の最小値〜最大値
+
+console.log(ordinalScale('poor')); // red 返す
+console.log(ordinalScale('great')); // green 返す
