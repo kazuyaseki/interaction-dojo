@@ -47,3 +47,11 @@ d3.json('data/data.json', function(data) {
   });
   console.log(ages.values());
 });
+
+const links = d3.selectAll('div a');
+console.log(links.nodes());
+
+d3
+  .select('.title')
+  .append('button')
+  .html('Inventory <b>SALE</b>');
