@@ -1,0 +1,58 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+<div class="container">
+  <h2>Controlling GSAP Tweens</h2>
+
+  <div class="example">
+    <button class="example__button" id="playButton">Play</button>
+    <button class="example__button" id="pauseButton">Pause</button>
+    <button class="example__button" id="reverseButton">Reverse</button>
+    <button class="example__button" id="restartButton">Restart</button>
+    <button class="example__button" id="resumeButton">Resume</button>
+
+
+    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/234228/drinkmebottle.gif" alt="Alice" class="example__element" />
+  </div>
+
+</div>
+<script>const container = document.querySelector('.container'),
+    playButton = document.querySelector('#playButton'),
+    pauseButton = document.querySelector('#pauseButton'),
+    reverseButton = document.querySelector('#reverseButton'),
+    restartButton = document.querySelector('#restartButton'),
+    resumeButton = document.querySelector('#resumeButton'),
+    exampleElement = document.querySelector('.example__element');
+
+  //apply a perspective to the PARENT element (the container) to make the perspective apply to all child elements (typically best when using 3D transforms)
+  //again, notice the use of the set() method
+  TweenMax.set(container, { perspective: 1000 });
+
+  //cache tween in a variable and pause it
+  //on page load
+  const myCoolTween = TweenMax.to(exampleElement, 5, {
+    rotationX: 360,
+    rotationY: 180,
+    scaleX: 0.8,
+    z: -500,
+    paused: true
+  });
+
+  //handlers to control play, pause,reverse, restart, and resume
+  playButton.addEventListener('click', function () {
+    myCoolTween.play();
+  });
+
+  pauseButton.addEventListener('click', function () {
+    myCoolTween.pause();
+  });
+
+  reverseButton.addEventListener('click', function () {
+    myCoolTween.reverse();
+  });
+
+  restartButton.addEventListener('click', function () {
+    myCoolTween.restart();
+  });
+
+  resumeButton.addEventListener('click', function () {
+    myCoolTween.resume();
+  });</script>
