@@ -1,0 +1,76 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+<div class="container">
+  <h2>Basic use of GSAP to(), from() and fromTo() methods</h2>
+
+  <div class="example">
+    <h3 class="example__title">GSAP to()</h3>
+    <button class="example__button" id="to-button">Play</button>
+    <img class="example__element" id="to-element" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/234228/drinkmebottle.gif"
+      alt="Alice" />
+  </div>
+
+  <div class="example">
+    <h3 class="example__title">GSAP from()</h3>
+    <button class="example__button" id="from-button">Play</button>
+    <img class="example__element" id="from-element" style="position:relative;" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/234228/drinkmebottle.gif"
+      alt="Alice" />
+  </div>
+
+  <div class="example">
+    <h3 class="example__title">GSAP fromTo()</h3>
+    <button class="example__button" id="from-to-button">Play</button>
+    <img class="example__element" id="from-to-element" style="position:relative;" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/234228/drinkmebottle.gif"
+      alt="Alice" />
+  </div>
+
+</div>
+<script>
+  //to() method
+  const toButton = document.querySelector('#to-button'),
+    toElement = document.querySelector('#to-element');
+
+  //the page loads with the element 
+  //in a slanted position: notice 
+  //the set() method (no duration)
+  TweenMax.set(toElement, { rotation: -10 });
+
+  //from slanted, the element rotates 
+  //360 degrees and ends up upright
+  toButton.addEventListener('click', () => {
+    TweenMax.to(toElement, 1, { rotation: 270 });
+  });
+
+  //from() method
+  const fromButton = document.querySelector('#from-button'),
+    fromElement = document.querySelector('#from-element');
+
+  //the element is animated from -100px using
+  //translate-x under the hood
+  //and ends up in its default position 
+  //as set in the CSS
+  fromButton.addEventListener('click', () => {
+    TweenMax.from(fromElement, 1, {
+      x: 500
+    });
+    TweenMax.to(fromElement, 1, { rotation: 1080 });
+  });
+
+  //fromTo()
+  const fromToButton = document.querySelector('#from-to-button'),
+    fromToElement = document.querySelector('#from-to-element');
+
+  //the element starts from -100px along 
+  //the Y axis (top) and ends up being 
+  //translated to its default position as 
+  //set in CSS
+  fromToButton.addEventListener('click', () => {
+    TweenMax.fromTo(fromToElement, 1, {
+      y: -100,
+      x: 1000
+    }, {
+        x: 0,
+        y: 0,
+        rotation: 1440
+      });
+  });
+</script>
