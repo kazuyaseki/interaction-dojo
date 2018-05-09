@@ -65,7 +65,7 @@
     // tween 1: rotate shape on X and Y axis
     // scale it up to its regular dimensions
     // add a fun ease
-    .to(".example__ball", 1.0, {
+    .to(".example__ball", 0.5, {
       rotationX: 360,
       rotationY: 180,
       scale: 1,
@@ -78,5 +78,6 @@
       autoAlpha: 1,
       scale: 1,
       ease: Back.easeOut.config(4)
-    });
+    }, '-=0.2'); // 第４引数にposition parameterつけることによって前のアニメーションの終了時間を起点として、次のアニメーションの開始時間を調整することができる
+
 </script>
