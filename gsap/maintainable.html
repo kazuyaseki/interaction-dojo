@@ -1,0 +1,225 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+<div class="example">
+  <div class="example__shape balloon-handle"></div>
+  <div class="example__shape balloon"></div>
+  <span class="g">G</span>
+  <span class="s">S</span>
+  <span class="a">A</span>
+  <span class="p">P</span>
+  <span class="example__text-end">is Cool!</span>
+</div>
+
+<div class="animation-control">
+  <button class="animation-control__button">Replay</button>
+</div>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
+  html,
+  body {
+    height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    background-color: darken(#8EE5EE, 20);
+  }
+
+  html {
+    background: darken(#8EE5EE, 20) url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/234228/clouds-33139.svg) center center no-repeat;
+    background-size: cover;
+    background-position: fixed;
+  }
+
+  .example {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    min-height: 800px;
+    overflow: hidden;
+    margin: 0 auto;
+    perspective: 2000;
+  }
+
+  .example__shape {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    perspective: 2000;
+    perspective-origin: center bottom;
+    background-color: #B452CD;
+    box-shadow: 25px 15px 60px rgba(0, 0, 0, .5);
+  }
+
+  .g,
+  .s,
+  .a,
+  .p,
+  .example__text-end {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 3em;
+    font-family: 'Luckiest Guy', cursive;
+    ;
+    color: lighten(#B452CD, 40);
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, .5);
+  }
+
+  .balloon-handle {
+    height: 200px;
+    width: 10px;
+    border-radius: 5px;
+  }
+
+  .balloon {
+    border-radius: 20px;
+  }
+
+  .example__title {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+    font-size: 3em;
+    text-align: center;
+    color: darken(#B452CD, 25);
+  }
+
+  .animation-control {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    padding-top: 2em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .animation-control__button {
+    display: block;
+    margin: 0 auto;
+    outline: none;
+    border: none;
+    padding: 0.5em;
+    background-color: #B452CD;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 2em;
+    color: white;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s,
+    border-radius 0.2s;
+  }
+
+  .animation-control__button:hover,
+  .animation-control__button:focus {
+    background-color: darken(#B452CD, 10);
+    border-radius: 25px;
+    box-shadow: 0px 3px 30px rgba(0, 0, 0, .5);
+  }
+</style>
+
+<script>
+  // cache elements in variables
+  const example = document.querySelector('.example'),
+    balloon = document.querySelector('.balloon'),
+    balloonHandle = document.querySelector('.balloon-handle'),
+    title = document.querySelector('.example__title'),
+    shape = document.querySelectorAll('.example__shape'),
+    g = document.querySelector('.g'),
+    s = document.querySelector('.s'),
+    a = document.querySelector('.a'),
+    p = document.querySelector('.p'),
+    textEnd = document.querySelector('.example__text-end'),
+    replayButton = document.querySelector('.animation-control__button');
+
+  // first timeline inside setup() function
+  function setup() {
+    // instantiate timeline
+    const tl = new TimelineMax();
+
+    // add tweens
+    tl.set(replayButton, { autoAlpha: 0 })
+      .set([g, s, a, p, textEnd], { scale: 0, autoAlpha: 0 })
+      .set(shape, { scale: 0 });
+
+    // return timeline
+    return tl;
+  }
+
+  // second timeline
+  function createBalloon() {
+    const tl = new TimelineMax();
+
+    tl.add('balloncreation')
+      .to(balloon, 0.5, { rotation: 360, borderRadius: '50%', scale: 1 })
+      .to(balloon, 0.5, { rotationX: 360, rotationZ: -300 })
+      .to(balloonHandle, 0.1, { autoAlpha: 1, y: 180, scale: 1 }, 'ballooncreation-=0.8');
+
+    return tl;
+  }
+
+  // third timeline
+  function displayText() {
+    const tl = new TimelineMax();
+    tl.add('startG')
+      .to(g, 0.3, { scale: 0.5, autoAlpha: 0.1, rotation: 50, y: 100, x: -130 })
+      .to(g, 0.2, { scale: 1, autoAlpha: 1, rotation: -10, y: -70, x: -130, ease: Back.easeOut })
+      .add('startS')
+      .to(s, 0.3, { scale: 0.5, autoAlpha: 0.1, rotation: 50, y: 100, x: -130 }, 'startG+=0.2')
+      .to(s, 0.2, { scale: 1, autoAlpha: 1, rotation: -20, y: -75, x: -50, ease: Back.easeOut })
+      .add('startA')
+      .to(a, 0.3, { scale: 0.5, autoAlpha: 0.1, rotation: 50, y: 100, x: 130 }, 'startS+=0.3')
+      .to(a, 0.2, { scale: 1, autoAlpha: 1, rotation: 10, y: -75, x: 20, ease: Back.easeOut })
+      .to(p, 0.3, { scale: 0.5, autoAlpha: 0.1, rotation: 50, y: 100, x: 100 }, 'startA+=0.3')
+      .add('startP')
+      .to(p, 0.2, { scale: 1, autoAlpha: 1, rotation: 20, y: -65, x: 100, ease: Back.easeOut })
+      .to(textEnd, 0.3, { scale: 2, autoAlpha: 1, rotation: 360, y: 30, x: -85, ease: Back.easeOut.config(4) }, 'startP+=0.2')
+      .to(textEnd, 0.8, { scale: 1, ease: Back.easeOut.config(4) });
+
+    return tl;
+  }
+
+  // fourth timeline
+  function flyBalloon() {
+    const tl = new TimelineMax();
+
+    tl.add('balloonflying')
+      .to(example, 3, { y: -1000, ease: Elastic.easeIn })
+      .to('html', 1, { backgroundPosition: 'center top', ease: Power0.easeNone }, 'balloonflying+=2.8')
+      .to(example, 0.1, { scale: 0, autoAlpha: 0 })
+      .to(replayButton, 0.3, { autoAlpha: 1 });
+
+    return tl;
+  }
+
+  // instantiate master timeline
+  const master = new TimelineMax();
+
+  // nest and call functions with timelines
+  // add labels for better master timeline control
+  master.add(setup())
+    .add(createBalloon(), 'createBalloon')
+    .add(displayText(), 'displayText')
+    .add(flyBalloon(), 'flyBalloon');
+
+  // replay
+  replayButton.addEventListener('click', function () {
+    master.restart();
+  });
+</script>
