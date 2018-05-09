@@ -55,3 +55,72 @@ d3
   .select('.title')
   .append('button')
   .html('Inventory <b>SALE</b>');
+
+this.settings = {
+  width: 560,
+  height: 120,
+  margin: {
+    top: 20,
+    bottom: 20,
+    left: 40,
+    right: 20
+  },
+  bar: {
+    width: 12,
+    fillColor: '#58BE89',
+    strokeColor: '#666'
+  }
+};
+
+const getOriginTimeDate = timeMsec => {
+  let date = new Date(timeMsec);
+  date.setHours(0, 0, 0, 0);
+  return date;
+};
+
+let startDate = getOriginTimeDate(Date.now());
+var xScale = d3
+  .scaleTime()
+  .domain([startDate, new Date(startDate.getTime() + 24 * 60 * 60 * 1000)])
+  .rangeRound([0, this.settings.width]);
+var xAxis = d3.axisBottom().scale(xScale);
+
+let svg = d3
+  .select('svg')
+  .attr('width', this.settings.width)
+  .attr('height', this.settings.height);
+
+svg
+  .append('g')
+  .attr(
+    'transform',
+    'translate(' +
+      [
+        this.settings.margin.left,
+        this.settings.height - this.settings.margin.bottom
+      ] +
+      ')'
+  )
+  .call(xAxis);
+svg
+  .append('g')
+  .attr('transform', 'translate(' + [this.settings.margin.left, 0] + ')')
+  .call(yAxis);
+
+let rect = svg
+  .selectAll('rect')
+  .data(data)
+  .enter()
+  .append('rect')
+  .attr('width', this.settings.bar.width)
+  .attr('height', function(d) {
+    return heightScale(d.viewTime);
+  })
+  .attr('x', function(d) {
+    return xScale(new Date(d.startTimeMsec));
+  })
+  .attr('y', function(d) {
+    return yScale(d.viewTime);
+  })
+  .attr('fill', this.settings.bar.fillColor)
+  .attr('stroke', this.settings.bar.strokeColor);
