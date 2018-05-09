@@ -20,7 +20,7 @@
   //translated to its default position as 
   //set in CSS
   fromToButton.addEventListener('click', () => {
-    TweenMax.fromTo(fromToElement, 5, {
+    TweenMax.fromTo(fromToElement, 2, {
       y: -100,
       x: 1000,
       opacity: 0
@@ -30,7 +30,9 @@
         opacity: 1,
         rotation: 1440,
         delay: 0.5,
-        ease: Back.easeOut.config(5)
+        ease: Back.easeOut.config(5),
+        repeat: -1,
+        repeatDelay: 1
       });
   });
 </script>
